@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o xtrace
+
+readonly TARGET_HOST=mauc@192.168.179.239
+readonly TARGET_PATH=/App/screensaver
+# readonly TARGET_ARCH=armv7-unknown-linux-gnueabihf
+readonly TARGET_ARCH=aarch64-unknown-linux-gnu
+readonly SOURCE_PATH_RELEASE=./target/${TARGET_ARCH}/release/mynannou-example
+readonly SOURCE_PATH_DEBUG=./target/${TARGET_ARCH}/debug/mynannou-example
+
+export PKG_CONFIG_SYSROOT_DIR=/usr/arm-linux-gnueabihf/
+export PKG_CONFIG_LIBDIR=/usr/arm-linux-gnueabihf/lib/pkgconfig
+
+# cargo build --release --target=${TARGET_ARCH}
+rsync -av ${SOURCE_PATH_RELEASE} ${TARGET_HOST}:${TARGET_PATH}/release/
+rsync -av ${SOURCE_PATH_DEBUG} ${TARGET_HOST}:${TARGET_PATH}/debug/
+# ssh -t ${TARGET_HOST} ${TARGET_PATH}

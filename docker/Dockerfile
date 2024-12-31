@@ -11,7 +11,20 @@ RUN dpkg --add-architecture armhf && \
     dpkg --add-architecture arm64 && \
     apt-get update && apt-get install -y --no-install-recommends \
     sudo \
+    mesa-vulkan-drivers \
+    vulkan-tools \
+    libvulkan1 \
+    libvulkan-dev \
+    libgl1-mesa-dri \
+    libgl1-mesa-dev \
+    libgles2-mesa-dev \
+    mesa-common-dev \
     build-essential \
+    libgl1 \
+    libgles2 \
+    libglx-mesa0 \
+    libegl1 \
+    libegl-mesa0 \
     gcc-arm-linux-gnueabihf \
     libc6-armhf-cross \
     libc6-dev-armhf-cross \
@@ -21,6 +34,29 @@ RUN dpkg --add-architecture armhf && \
     qemu-user \
     binutils-arm-linux-gnueabihf \
     binutils-aarch64-linux-gnu \
+    mesa-vulkan-drivers:armhf \
+    libvulkan1:armhf \
+    libvulkan-dev:armhf \
+    libgl1-mesa-dri:armhf \
+    libgl1-mesa-dev:armhf \
+    libgles2-mesa-dev:armhf \
+    mesa-common-dev:armhf \
+    libegl1:armhf \
+    libegl-mesa0:armhf \
+    libgles2:armhf \
+    libglx-mesa0:armhf \
+    mesa-vulkan-drivers:arm64 \
+    libvulkan1:arm64 \
+    libvulkan-dev:arm64 \
+    libgl1-mesa-dri:arm64 \
+    libgl1-mesa-dev:arm64 \
+    libgles2-mesa-dev:arm64 \
+    mesa-common-dev:arm64 \
+    libegl1:arm64 \
+    libegl-mesa0:arm64 \
+    libgles2:arm64 \
+    libglx-mesa0:arm64 \
+    
     libx11-dev:armhf \
     libx11-dev:arm64 \
     libxcb1-dev:armhf \
