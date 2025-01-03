@@ -2,6 +2,7 @@
 //Heavily inspired from https://www.local-guru.net/blog/2020/12/22/nannou-experiment-no2---perlin-noise
 use nannou::noise::NoiseFn;
 use nannou::prelude::*;
+use nannou::wgpu::{DeviceDescriptor, Limits};
 
 const CAPTURE: bool = false;
 
@@ -12,15 +13,26 @@ fn main() {
 }
 
 struct Model {
-    points: Vec<Vector3>,
+    points: Vec<Vec3>,
     noise: nannou::noise::OpenSimplex,
 }
 
 fn model(app: &App) -> Model {
-    app.new_window().size(900,900).view(view).build().unwrap();
+    let device_desc = DeviceDescriptor {
+                limits: Limits::downlevel_defaults(),
+                .. DeviceDescriptor::default()
+     };
+
+    app
+        .new_window()
+        .device_descriptor(device_desc)
+        .size(900,900)
+        .view(view)
+        .build()
+        .unwrap();
     let mut p = vec![];
-    for x in -20..20 {
-        for y in -20..20 {
+    for x in -10..10 {
+        for y in -10..10 {
             p.push(vec3(x as f32, y as f32, 0.0));
         }
     }

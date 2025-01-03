@@ -3,6 +3,7 @@
 use nannou::noise::NoiseFn;
 use nannou::rand::*;
 use nannou::prelude::*;
+use nannou::wgpu::{DeviceDescriptor, Limits};
 
 const CAPTURE: bool = false;
 
@@ -13,8 +14,8 @@ fn main() {
 }
 
 struct Particle {
-    pos: Vector2,
-    vel: Vector2,
+    pos: Vec2,
+    vel: Vec2,
 }
 
 impl Particle {
@@ -25,7 +26,7 @@ impl Particle {
         }
     }
 
-    fn update(&mut self, dir: Vector2) {
+    fn update(&mut self, dir: Vec2) {
         self.pos += self.vel;
         self.vel += dir;
         self.vel *= 0.8;
@@ -39,8 +40,19 @@ struct Model {
 
 fn model(app: &App) -> Model {
     //app.new_window().size(600,600).view(view).build().unwrap();
-    app.new_window().view(view).build().unwrap();
-    app.main_window().set_fullscreen(true);
+    let device_desc = DeviceDescriptor {
+                limits: Limits::downlevel_defaults(),
+                .. DeviceDescriptor::default()
+     };
+
+    app
+        .new_window()
+        .device_descriptor(device_desc)
+        .size(600,600)
+        .view(view)
+        .build()
+        .unwrap();
+    // app.main_window().set_fullscreen(true);
     let r = app.window_rect().right() as f32;
     let l = app.window_rect().left() as f32;
 
